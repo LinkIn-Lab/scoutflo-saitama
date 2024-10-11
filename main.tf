@@ -145,3 +145,5 @@ resource "aws_eks_addon" "coredns" {
   }
 
 #hii
+
+
