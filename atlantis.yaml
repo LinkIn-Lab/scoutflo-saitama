@@ -32,12 +32,13 @@ workflows:
   myworkflow:
     plan:
       steps:
-      - run: terraform init
-      - run: terraform plan
       - run: |
           trivy config --format json --output trivy_report.json .
           if jq -e '.Results[] | select(.Vulnerabilities[] | .Severity == "CRITICAL")' trivy_report.json > /dev/null; then
             echo "Trivy found critical vulnerabilities. Please review the report."
             exit 1
           fi
+      - run: terraform init
+      - run: terraform plan
+      
 
